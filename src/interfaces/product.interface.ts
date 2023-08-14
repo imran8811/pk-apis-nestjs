@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 
 export interface IProduct extends Document {
   readonly sizes: string;
-  readonly colors: string;
+  readonly color: string;
   readonly fitting: string;  
   readonly fabric: string;  
   readonly fabricWeight: string;
@@ -11,7 +11,7 @@ export interface IProduct extends Document {
   readonly price: string;
   readonly articleNo: string;
   readonly category: string;
-  readonly type: string;
+  readonly dept: string;
   readonly length: string;
   readonly slug: string;
 }
