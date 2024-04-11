@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Res, Req, Body, HttpStatus } from '@nestjs/common';
-import { AdminUserDTO } from 'src/dtos/admin-user.dto';
+import { AdminUserDTO } from 'src/dtos/admin/admin-user.dto';
 import { AdminService } from 'src/services/admin-user.service';
 import * as bcrypt from 'bcrypt';
 import { IAdminUser } from 'src/interfaces/admin-user.interface';

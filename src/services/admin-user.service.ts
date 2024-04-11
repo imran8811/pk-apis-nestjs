@@ -1,10 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AddProductDTO, UpdateProductDTO } from 'src/dtos/product.dto';
-import { IProduct } from 'src/interfaces/product.interface';
 import { Model } from 'mongoose';
 import { IAdminUser } from 'src/interfaces/admin-user.interface';
-import { AdminUserDTO } from 'src/dtos/admin-user.dto';
 
 @Injectable()
 export class AdminService {

@@ -2,14 +2,16 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProductModule } from 'src/modules/product/product.module';
-import { AdminModule } from 'src/modules/admin/admin.module';
+import { ProductModule, AdminModule, AuthModule, CartModule } from 'src/modules';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/', { dbName: 'pkapparel'}),
+    // MongooseModule.forRoot('mongodb+srv://imran8811:Piyar1dafa%21%40%23@pkapparel.6x7jk.mongodb.net/?retryWrites=true&w=majority', { dbName: 'pkapparel'}),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017', { dbName: 'pkapparel'}),
     ProductModule,
-    AdminModule
+    AdminModule,
+    AuthModule,
+    CartModule
   ],
   controllers: [AppController],
   providers: [AppService],

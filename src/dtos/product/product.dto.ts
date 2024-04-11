@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsString, IsNumber, MaxLength, IsDate } from "class-validator";
-import { PartialType } from "@nestjs/mapped-types";
+import { IsNotEmpty, IsString, IsNumber, MaxLength, IsDate, IsArray } from "class-validator";
 
-export class AddProductDTO {
+export class ProductDTO {
+  @IsString()
+  readonly articleNo: string;
   @IsString()
   readonly sizes: string;
   @IsString()
@@ -19,15 +20,13 @@ export class AddProductDTO {
   @IsString()
   readonly price: string;
   @IsString()
-  readonly articleNo: string;
-  @IsString()
   readonly category: string;
   @IsString()
   readonly dept: string;
   @IsString()
   readonly slug: string;
-}
-
-export class UpdateProductDTO extends PartialType(AddProductDTO){
-
+  @IsString()
+  readonly length: string;
+  @IsArray()
+  readonly productImages: string[];
 }
