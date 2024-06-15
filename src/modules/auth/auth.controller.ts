@@ -13,6 +13,7 @@ export class AuthController {
     private authService: AuthService,
   ) {}
 
+  @Public()
   @Post('signup')
   async userRegister(@Res() response, @Body() userDTO: UserDTO) {
     const userRegister = await this.authService.userRegister(userDTO);
@@ -26,6 +27,7 @@ export class AuthController {
     }
   }
 
+  @Public()
   @Post('login')
   async userLogin(@Res() response, @Body() body) {
     try {
