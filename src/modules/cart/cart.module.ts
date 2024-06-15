@@ -3,13 +3,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { CartService } from '../../services';
 import { CartController } from './cart.controller';
-import { CartSchema } from 'src/schemas';
+import { Cart, CartSchema } from 'src/schemas';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       {
-        name: "cart",
+        name: Cart.name,
         schema: CartSchema
       }
     ]),

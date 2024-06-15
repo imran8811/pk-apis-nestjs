@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { ProductDTO } from 'src/dtos/product/product.dto';
-import { ProductImageDTO } from 'src/dtos/product/image.dto';
+import { ProductImageDTO } from 'src/dtos/image.dto';
 
 import { IProduct } from 'src/interfaces/product.interface';
 import { IProductImage } from 'src/interfaces/image.interface';
@@ -12,17 +12,28 @@ import { IProductImage } from 'src/interfaces/image.interface';
 export class ProductService {
 
   constructor(
-    @InjectModel('product') private productInfo: Model<IProduct>,
-    @InjectModel('productimage') private productImages: Model<IProductImage>
+    @InjectModel('Product') private product: Model<IProduct>,
+    @InjectModel('ProductImages') private productImages: Model<IProductImage>
   ){}
 
   async addProduct(addProductDTO: ProductDTO): Promise<IProduct>{
-    const newProduct = await new this.productInfo(addProductDTO);
+    const newProduct = new this.product(addProductDTO);
     return newProduct.save();
   }
 
+  async updateProduct(productId, data): Promise<any>{
+    let filter = { _id: productId }
+    // return {
+    //   productId,
+    //   data
+    // };
+    let update = data 
+    const updateProduct = await this.product.findOneAndUpdate(filter, update, {new: true});
+    return updateProduct;
+  }
+
   getProductByCategoryDept(dept: string, category: string){
-    const getProducts = this.productInfo.find({
+    const getProducts = this.product.find({
       dept,
       category
     })
@@ -32,31 +43,32 @@ export class ProductService {
   }
 
   getProductById(productId:number){
-    const getProductById = this.productInfo.find({
-      productId
+    const getProductById = this.product.findOne({
+      _id : productId
     })
     .populate('productImages')
     .exec();
     return getProductById;
   }
 
-  getProductByCategoryDeptArticleNo(dept: string, category: string, articleNo:number){
-    const getProductDetails = this.productInfo.find({
+  getProductByCategoryDeptArticleNo(dept: string, category: string, productId:string){
+    const getProductDetails = this.product.find({
       dept: dept,
       category: category,
-      articleNo: articleNo,
-    }).populate('productImages')
+      _id: productId,
+    })
+    .populate('productImages')
     .exec();
     return getProductDetails;
   }
 
   getAllProducts(){
-    const getAllProducts = this.productInfo.find().populate('productImages').exec();
+    const getAllProducts = this.product.find().populate('productImages').exec();
     return getAllProducts;
   }
 
   deleteProductById(articleNo:string){
-    return this.productInfo.deleteOne({
+    return this.product.deleteOne({
       articleNo,
     }).exec();
   }
@@ -68,7 +80,7 @@ export class ProductService {
   }
 
   getLatestArticleNo(){
-    const res = this.productInfo.findOne().sort({'createdAt' : -1 }).exec();
+    const res = this.product.findOne().sort({'createdAt' : -1 }).exec();
     return res;
   }
 
@@ -94,14 +106,14 @@ export class ProductService {
       this.UpdateProductImageId(productImageDTO.articleNo, res._id)
       return res;
     } else {
-      const newProductImage = await new this.productImages(productImageDTO);
+      const newProductImage = new this.productImages(productImageDTO);
       const res = await newProductImage.save();
       this.UpdateProductImageId(productImageDTO.articleNo, res._id)
     }
   }
 
   async UpdateProductImageId(articleNo, objectId): Promise<any>{
-    return this.productInfo.updateOne({
+    return this.product.updateOne({
       articleNo
     }, {
       $push :{
@@ -110,12 +122,11 @@ export class ProductService {
     }, {
       upsert: false, 
       new: true
-    }
-    )
+    })
   }
 
   getProductsByFilters(filters){
-    return this.productInfo.find({
+    return this.product.find({
       dept: filters.dept,
       category: filters.category,
       color: filters.color,

@@ -1,13 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Schema as mongooseSchema, Document } from 'mongoose';
+import { Document } from 'mongoose';
+import { ProductImages } from './image.schema';
 
-export type ProductInfoDocument = ProductInfo & Document;
+export type ProductDocument = Product & Document;
 
 @Schema({ timestamps: true })
-export class ProductInfo {
-  
-  @Prop({ type: Array, ref: 'productimage', required: true })
-  productImages: string[];
+export class Product {
+
+  @Prop({ type: Array, ref: 'ProductImages', required: true })
+  productImages: ProductImages;
 
   @Prop({ type: String, required: true })
   articleNo: string;
@@ -44,9 +45,9 @@ export class ProductInfo {
 
   @Prop({ type: String, required: true })
   category: string;
-  
+
   @Prop({ type: String, required: true })
   length: string;
 }
 
-export const ProductInfoSchema = SchemaFactory.createForClass(ProductInfo);
+export const ProductSchema = SchemaFactory.createForClass(Product);

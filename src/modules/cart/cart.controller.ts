@@ -1,17 +1,17 @@
-import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put} from '@nestjs/common';
+import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put, Query} from '@nestjs/common';
 
 import { ProductDTO, ProductFilterDTO } from 'src/dtos';
-import { CartDTO } from 'src/dtos/product/cart.dto';
-import { ProductImageDTO } from 'src/dtos/product/image.dto';
+import { CartDTO } from 'src/dtos/cart.dto';
+import { ProductImageDTO } from 'src/dtos/image.dto';
 import { CartService } from 'src/services';
 
 @Controller('cart')
 export class CartController {
   constructor(private cartService: CartService) {}
 
-  @Get('getItems')
-  async getAllItemsByUser(@Body() body, @Res() response){
-    const res = this.cartService.getAllItemsByUser(body.userId)
+  @Get('getAll')
+  async getAllItemsByUser(@Query() queryParams){
+    const res = this.cartService.getAllItemsByUser(queryParams.userId);
     return res;
   }
 
@@ -26,8 +26,26 @@ export class CartController {
       })
     } catch(err){
       return response.status(HttpStatus.BAD_REQUEST).json({
-        statusCode: 400,
+        errorCode: 960,
         message: 'Error: Item not added into cart!',
+        error: err
+      })
+    }
+  }
+
+  @Delete(':id')
+  async deleteCartItem(@Param() params, @Res() response){
+    try {
+      const res = await this.cartService.deleteCartItem(params.id);
+      return response.status(HttpStatus.OK).json({
+        type: 'success',
+        message: 'Item deleted successfully',
+        data: res
+      })
+    } catch(err){
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        errorCode: 961,
+        message: 'Error: Item not deleted from cart!',
         error: err
       })
     }

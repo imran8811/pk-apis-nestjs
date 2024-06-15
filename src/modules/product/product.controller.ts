@@ -1,36 +1,42 @@
 import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put} from '@nestjs/common';
+import { Public } from 'src/decorators/public.deco';
 import { ProductDTO, ProductFilterDTO } from 'src/dtos';
-import { ProductImageDTO } from 'src/dtos/product/image.dto';
+import { ProductImageDTO } from 'src/dtos/image.dto';
 import { ProductService } from 'src/services/product.service';
 
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
-
+  
+  @Public()
   @Get('getAll')
   async getAllProducts() {
     const res = await this.productService.getAllProducts();
     return res;
   }
-
+  
+  @Public()
   @Get('details/:id')
   async getProductById(@Param() param) {
     const res = await this.productService.getProductById(param.id);
     return res;
   }
-
+  
+  @Public()
   @Get(':dept/:category/:id')
   async getProductByCategoryDeptArticleNo(@Param() param) {
     const res = await this.productService.getProductByCategoryDeptArticleNo(param.dept, param.category, param.id);
     return res;
   }
   
+  @Public()
   @Get(':dept/:category')
   async getProductByCategoryDept(@Param() param) {
     const res = await this.productService.getProductByCategoryDept(param.dept, param.category);
     return res;
   }
 
+  @Public()
   @Get('getLatestArticleNo')
   async getLatestArticleNo() {
     const res = await this.productService.getLatestArticleNo();
@@ -69,6 +75,24 @@ export class ProductController {
       return response.status(HttpStatus.BAD_REQUEST).json({
         statusCode: 400,
         message: 'Error: Product not created!',
+        error: err
+      })
+    }
+  }
+
+  @Put(':id')
+  async updateProduct(@Res() response, @Body() body, @Param() params) {
+    try {
+      const updateProduct = await this.productService.updateProduct(params.id, body);
+      return response.status(HttpStatus.ACCEPTED).json({
+        type: 'success',
+        message: 'Product has been updated successfully',
+        data: updateProduct
+      })
+    } catch(err){
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        statusCode: 400,
+        message: 'Error: Product not updated!',
         error: err
       })
     }

@@ -1,6 +1,8 @@
-import { IsNotEmpty, IsString, IsNumber, MaxLength, IsDate, IsArray } from "class-validator";
+import { IsNotEmpty, IsString, IsNumber, MaxLength, IsDate, IsArray, IsOptional } from "class-validator";
 
 export class ProductDTO {
+  @IsOptional()
+  readonly _id: string;
   @IsString()
   readonly articleNo: string;
   @IsString()
@@ -28,5 +30,6 @@ export class ProductDTO {
   @IsString()
   readonly length: string;
   @IsArray()
-  readonly productImages: string[];
+  @IsOptional()
+  readonly productImages?: string[];
 }

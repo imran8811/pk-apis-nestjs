@@ -11,10 +11,11 @@ import { ICart } from 'src/interfaces';
 
 @ValidatorConstraint({ async: true })
 export class IsItemAlreadyExistConstraint implements ValidatorConstraintInterface {
+  
   constructor(@InjectModel('cart') private cartModel: Model<ICart>) { }
 
   validate(productId: any, args: ValidationArguments) {
-    return this.cartModel.findOne({
+    return this.cartModel.find({
       productId
     }).then(item => {
       if (item) return false;
