@@ -36,6 +36,8 @@ export class CartController {
     }
   }
 
+
+  @Public()
   @Delete(':id')
   async deleteCartItem(@Param() params, @Res() response){
     try {

@@ -78,6 +78,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "saveItem", null);
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Res)()),
