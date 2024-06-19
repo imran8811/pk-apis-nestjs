@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put, Query} from '@nestjs/common';
+import { Public } from 'src/decorators/public.deco';
 
 import { ProductDTO, ProductFilterDTO } from 'src/dtos';
 import { CartDTO } from 'src/dtos/cart.dto';
@@ -15,6 +16,7 @@ export class CartController {
     return res;
   }
 
+  @Public()
   @Post('saveItem')
   async saveItem(@Body() cartDTO: CartDTO, @Res() response){
     try {

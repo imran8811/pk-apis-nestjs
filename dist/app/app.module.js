@@ -17,7 +17,7 @@ let AppModule = exports.AppModule = class AppModule {
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://imran8811:Piyar1dafa%21%40%23@pkapparel.6x7jk.mongodb.net/?retryWrites=true&w=majority', { dbName: 'pkapparel' }),
+            mongoose_1.MongooseModule.forRoot('mongodb+srv://imran8811:Piyar1dafa%21%40%23@pkapparel.6x7jk.mongodb.net/?retryWrites=true&w=majority&appName=pkapparel', { dbName: 'pkapparel' }),
             modules_1.ProductModule,
             modules_1.AdminModule,
             modules_1.AuthModule,
