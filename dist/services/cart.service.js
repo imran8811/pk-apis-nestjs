@@ -30,10 +30,11 @@ let CartService = exports.CartService = class CartService {
         return getCartItems;
     }
     async saveItem(cartDTO) {
-        const itemAlreadyExists = await this.itemAlreadyExists(cartDTO.productId);
+        const itemAlreadyExists = await this.itemAlreadyExists(cartDTO.productId, cartDTO.userId);
         if (itemAlreadyExists) {
             const res = this.cartModel.updateOne({
-                productId: cartDTO.productId,
+                userId: cartDTO.userId,
+                productId: cartDTO.productId
             }, {
                 quantity: cartDTO.quantity,
                 sizes: cartDTO.sizes,
@@ -58,9 +59,9 @@ let CartService = exports.CartService = class CartService {
             return res2;
         }
     }
-    async itemAlreadyExists(productId) {
+    async itemAlreadyExists(productId, userId) {
         return this.cartModel.findOne({
-            productId
+            productId, userId
         }).then(item => {
             if (item)
                 return true;

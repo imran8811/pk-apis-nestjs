@@ -23,10 +23,12 @@ export class CartService {
   }
 
   async saveItem (cartDTO: CartDTO): Promise<any> {
-    const itemAlreadyExists = await this.itemAlreadyExists(cartDTO.productId);
+    const itemAlreadyExists = await this.itemAlreadyExists(cartDTO.productId, cartDTO.userId);
+    // return itemAlreadyExists;
     if(itemAlreadyExists) {
       const res =  this.cartModel.updateOne({
-        productId: cartDTO.productId,
+        userId: cartDTO.userId,
+        productId: cartDTO.productId
       }, 
       {
         quantity: cartDTO.quantity,
@@ -52,9 +54,9 @@ export class CartService {
     }
   }
   
-  async itemAlreadyExists (productId:string): Promise<boolean> {
+  async itemAlreadyExists (productId:string, userId:string): Promise<boolean> {
     return this.cartModel.findOne({
-      productId
+      productId, userId
     }).then(item => {
       if (item) return true;
       return false;

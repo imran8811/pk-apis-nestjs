@@ -32,7 +32,7 @@ export declare class CartService {
         _id: import("mongoose").Types.ObjectId;
     }, never>[]>;
     saveItem(cartDTO: CartDTO): Promise<any>;
-    itemAlreadyExists(productId: string): Promise<boolean>;
+    itemAlreadyExists(productId: string, userId: string): Promise<boolean>;
     deleteCartItem(productId: string): Promise<any>;
     deleteCartItemByUserId(userId: string): Promise<any>;
 }

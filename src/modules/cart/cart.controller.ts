@@ -10,6 +10,7 @@ import { CartService } from 'src/services';
 export class CartController {
   constructor(private cartService: CartService) {}
 
+  @Public()
   @Get('getAll')
   async getAllItemsByUser(@Query() queryParams){
     const res = this.cartService.getAllItemsByUser(queryParams.userId);

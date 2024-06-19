@@ -61,6 +61,7 @@ let CartController = exports.CartController = class CartController {
     }
 };
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Get)('getAll'),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
