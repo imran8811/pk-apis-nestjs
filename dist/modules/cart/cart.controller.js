@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartController = void 0;
 const common_1 = require("@nestjs/common");
+const public_deco_1 = require("../../decorators/public.deco");
 const cart_dto_1 = require("../../dtos/cart.dto");
 const services_1 = require("../../services");
 let CartController = exports.CartController = class CartController {
@@ -67,6 +68,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "getAllItemsByUser", null);
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Post)('saveItem'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
