@@ -7,7 +7,7 @@ export type AdminDocument = HydratedDocument<Admin>;
 export class Admin {
   @Prop()
   readonly fullName: string;
-  @Prop()
+  @Prop({ unique: true })
   readonly email: string;
   @Prop()
   readonly password: string;

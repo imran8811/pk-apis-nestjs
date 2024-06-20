@@ -1,4 +1,4 @@
-export * from './admin/admin-user.dto';
+export * from './admin/admin.dto';
 export * from './product/product.dto';
 export * from './product/product-filter.dto';
 export * from './auth/user.dto';

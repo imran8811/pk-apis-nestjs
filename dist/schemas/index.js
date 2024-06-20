@@ -15,7 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./user.schema"), exports);
-__exportStar(require("./admin-user.schema"), exports);
+__exportStar(require("./admin.schema"), exports);
 __exportStar(require("./product.schema"), exports);
 __exportStar(require("./cart.schema"), exports);
 __exportStar(require("./order.schema"), exports);

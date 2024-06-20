@@ -22,16 +22,18 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
+import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { IAdminUser } from 'src/interfaces/admin-user.interface';
+import { AdminDTO } from 'src/dtos';
 export declare class AdminService {
     private adminUserModel;
-    constructor(adminUserModel: Model<IAdminUser>);
-    create(data: any): Promise<IAdminUser>;
-    login(data: any): Promise<(import("mongoose").Document<unknown, {}, IAdminUser> & IAdminUser & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
-    getAdmin: (email: string) => Promise<(import("mongoose").Document<unknown, {}, IAdminUser> & IAdminUser & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    private jwtService;
+    constructor(adminUserModel: Model<IAdminUser>, jwtService: JwtService);
+    createAdminUser(adminDTO: AdminDTO): Promise<any>;
+    adminUserLogin(email: string, password: string): Promise<any>;
+    getAdmin: (email: string) => Promise<(import("mongoose").Document<unknown, {}, IAdminUser> & IAdminUser & Required<{
+        _id: string;
+    }>)[]>;
+    adminLogout(userId: string): Promise<any>;
 }

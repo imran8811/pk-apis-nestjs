@@ -19,7 +19,7 @@ __exportStar(require("./auth/auth.module"), exports);
 __exportStar(require("./cart/cart.module"), exports);
 __exportStar(require("./product/product.module"), exports);
 __exportStar(require("./order/order.module"), exports);
-__exportStar(require("./admin/admin-user.controller"), exports);
+__exportStar(require("./admin/admin.controller"), exports);
 __exportStar(require("./auth/auth.controller"), exports);
 __exportStar(require("./cart/cart.controller"), exports);
 __exportStar(require("./product/product.controller"), exports);

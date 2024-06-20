@@ -14,29 +14,56 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminService = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const bcrypt = require("bcrypt");
 let AdminService = exports.AdminService = class AdminService {
-    constructor(adminUserModel) {
+    constructor(adminUserModel, jwtService) {
         this.adminUserModel = adminUserModel;
+        this.jwtService = jwtService;
         this.getAdmin = async (email) => {
             return await this.adminUserModel.find({ email: email }).exec();
         };
     }
-    async create(data) {
-        const newAdminUser = await new this.adminUserModel(data);
-        return newAdminUser.save();
+    async createAdminUser(adminDTO) {
+        const saltOrRounds = 10;
+        const password = adminDTO.password;
+        const hash = await bcrypt.hash(password, saltOrRounds);
+        adminDTO.password = hash;
+        const registerUser = new this.adminUserModel(adminDTO);
+        const res = await registerUser.save();
+        const access_token = await this.jwtService.signAsync({ sub: res._id, username: res.email });
+        return {
+            token: access_token,
+        };
     }
-    login(data) {
-        return this.adminUserModel.find({
-            email: data.email,
-            password: data.password
+    async adminUserLogin(email, password) {
+        const userLogin = await this.adminUserModel.findOne({
+            email
         }).exec();
+        const passwordMatch = await bcrypt.compare(password, userLogin.password);
+        if (passwordMatch) {
+            const access_token = await this.jwtService.signAsync({ sub: userLogin._id, username: userLogin.email });
+            return {
+                token: access_token,
+            };
+        }
+        else {
+            throw new Error('445');
+        }
+    }
+    async adminLogout(userId) {
+        const userExists = await this.adminUserModel.findOne({
+            _id: userId
+        }).exec();
+        return userExists ? true : false;
     }
 };
 exports.AdminService = AdminService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)('admin_user')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(0, (0, mongoose_1.InjectModel)('Admin')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        jwt_1.JwtService])
 ], AdminService);
-//# sourceMappingURL=admin-user.service.js.map
+//# sourceMappingURL=admin.service.js.map

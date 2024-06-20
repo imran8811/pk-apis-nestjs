@@ -9,9 +9,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const admin_user_controller_1 = require("./admin-user.controller");
-const admin_user_schema_1 = require("../../schemas/admin-user.schema");
-const admin_user_service_1 = require("../../services/admin-user.service");
+const admin_controller_1 = require("./admin.controller");
+const admin_schema_1 = require("../../schemas/admin.schema");
+const admin_service_1 = require("../../services/admin.service");
+const jwt_1 = require("@nestjs/jwt");
+const constants_1 = require("../../constants");
 let AdminModule = exports.AdminModule = class AdminModule {
 };
 exports.AdminModule = AdminModule = __decorate([
@@ -19,13 +21,18 @@ exports.AdminModule = AdminModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([
                 {
-                    name: 'admin_user',
-                    schema: admin_user_schema_1.AdminSchema
+                    name: admin_schema_1.Admin.name,
+                    schema: admin_schema_1.AdminSchema
                 }
             ]),
+            jwt_1.JwtModule.register({
+                global: true,
+                secret: constants_1.jwtConstants.secret,
+                signOptions: { expiresIn: '7d' },
+            }),
         ],
-        controllers: [admin_user_controller_1.AdminController],
-        providers: [admin_user_service_1.AdminService],
+        controllers: [admin_controller_1.AdminController],
+        providers: [admin_service_1.AdminService],
     })
 ], AdminModule);
 //# sourceMappingURL=admin.module.js.map

@@ -9,21 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdminUserDTO = void 0;
-const class_validator_1 = require("class-validator");
-class AdminUserDTO {
-}
-exports.AdminUserDTO = AdminUserDTO;
+exports.AdminSchema = exports.Admin = void 0;
+const mongoose_1 = require("@nestjs/mongoose");
+let Admin = exports.Admin = class Admin {
+};
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], AdminUserDTO.prototype, "fullName", void 0);
+], Admin.prototype, "fullName", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({ unique: true }),
     __metadata("design:type", String)
-], AdminUserDTO.prototype, "email", void 0);
+], Admin.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], AdminUserDTO.prototype, "password", void 0);
-//# sourceMappingURL=admin-user.dto.js.map
+], Admin.prototype, "password", void 0);
+exports.Admin = Admin = __decorate([
+    (0, mongoose_1.Schema)({ timestamps: true })
+], Admin);
+exports.AdminSchema = mongoose_1.SchemaFactory.createForClass(Admin);
+//# sourceMappingURL=admin.schema.js.map

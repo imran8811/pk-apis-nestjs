@@ -7,7 +7,7 @@ export * from './order/order.module';
 
 
 //controllers
-export * from './admin/admin-user.controller';
+export * from './admin/admin.controller';
 export * from './auth/auth.controller';
 export * from './cart/cart.controller';
 export * from './product/product.controller';

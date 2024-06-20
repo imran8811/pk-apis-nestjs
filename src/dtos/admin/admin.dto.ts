@@ -1,10 +1,10 @@
 import { IsNotEmpty, IsString, IsNumber, MaxLength, IsDate } from "class-validator";
 
-export class AdminUserDTO {
+export class AdminDTO {
   @IsString()
-  readonly fullName: string;
+  fullName: string;
   @IsString()
-  readonly email: string;
+  email: string;
   @IsString()
-  readonly password: string;
+  password: string;
 }

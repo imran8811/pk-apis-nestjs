@@ -1,9 +1,6 @@
 import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, HttpException, UseGuards} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from 'src/auth.guard';
-import { jwtConstants } from 'src/constants';
 import { Public } from 'src/decorators/public.deco';
-import { UserDTO, UserLoginDTO } from 'src/dtos';
+import { UserDTO } from 'src/dtos';
 import { AuthService } from 'src/services';
 
 @Controller('auth')

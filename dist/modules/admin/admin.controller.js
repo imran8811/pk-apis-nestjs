@@ -14,74 +14,91 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
-const admin_user_service_1 = require("../../services/admin-user.service");
-const bcrypt = require("bcrypt");
+const admin_service_1 = require("../../services/admin.service");
+const public_deco_1 = require("../../decorators/public.deco");
+const dtos_1 = require("../../dtos");
 let AdminController = exports.AdminController = class AdminController {
     constructor(adminService) {
         this.adminService = adminService;
     }
-    async createAdmin(reqData, response) {
+    async createAdmin(adminDTO, response) {
         try {
-            const saltOrRound = 10;
-            const data = {
-                fullName: reqData.fullName,
-                email: reqData.email,
-                password: await bcrypt.hash(reqData.password, saltOrRound)
-            };
-            const res = await this.adminService.create(data);
+            const res = await this.adminService.createAdminUser(adminDTO);
             return response.status(common_1.HttpStatus.CREATED).json({
                 type: 'success',
                 message: 'New Admin user created',
-                data: {
-                    email: res[0].email,
-                    fullName: res[0].fullName
-                }
+                data: res
             });
         }
         catch (err) {
             return response.status(common_1.HttpStatus.BAD_REQUEST).json({
                 statusCode: 400,
-                message: 'Error: User not created!',
+                message: err.message,
                 error: 'Bad Request',
                 err: err
             });
         }
     }
-    async adminLogin(reqData, response) {
+    async adminUserLogin(response, body) {
         try {
-            const saltOrRounds = 10;
-            let hasedPassword;
-            const adminUser = this.adminService.getAdmin(reqData.email).then(res => res);
+            const adminUserLogin = await this.adminService.adminUserLogin(body.email, body.password);
             return response.status(common_1.HttpStatus.CREATED).json({
                 type: 'success',
-                message: 'Signed in successfully',
-                token: 'sdfsdfsdfsdfsfd',
-                data: adminUser
+                data: adminUserLogin
             });
         }
         catch (err) {
-            console.log(err);
+            return response.status(common_1.HttpStatus.NOT_FOUND).json({
+                type: 'error',
+                message: 'Invalid Email/Password',
+            });
+        }
+    }
+    async userLogout(response, body) {
+        try {
+            const userLogin = await this.adminService.adminLogout(body.userId);
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                data: userLogin
+            });
+        }
+        catch (err) {
+            return response.status(common_1.HttpStatus.NOT_FOUND).json({
+                type: 'error',
+                message: 'Unable to logout user',
+            });
         }
     }
 };
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [dtos_1.AdminDTO, Object]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "createAdmin", null);
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Post)('login'),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)()),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], AdminController.prototype, "adminLogin", null);
+], AdminController.prototype, "adminUserLogin", null);
+__decorate([
+    (0, public_deco_1.Public)(),
+    (0, common_1.Post)('logout'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "userLogout", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
-    __metadata("design:paramtypes", [admin_user_service_1.AdminService])
+    __metadata("design:paramtypes", [admin_service_1.AdminService])
 ], AdminController);
-//# sourceMappingURL=admin-user.controller.js.map
+//# sourceMappingURL=admin.controller.js.map
