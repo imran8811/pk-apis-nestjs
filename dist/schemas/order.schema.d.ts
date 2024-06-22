@@ -23,12 +23,14 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Document } from 'mongoose';
+import { Product } from './product.schema';
 export type OrderDocument = Order & Document;
 export declare class Order {
     items: object[];
     shippingAddress: string;
     orderAmount: string;
     userId: string;
+    productDetails: Product;
 }
 export declare const OrderSchema: import("mongoose").Schema<Order, import("mongoose").Model<Order, any, any, any, Document<unknown, any, Order> & Order & {
     _id: import("mongoose").Types.ObjectId;

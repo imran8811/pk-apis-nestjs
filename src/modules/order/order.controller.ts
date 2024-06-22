@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put, Query, UseGuards} from '@nestjs/common';
 import { AuthGuard } from 'src/auth.guard';
+import { Public } from 'src/decorators/public.deco';
 
 import { OrderDTO } from 'src/dtos';
 import { CartService, OrderService } from 'src/services';
