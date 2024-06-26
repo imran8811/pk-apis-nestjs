@@ -171,6 +171,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getLatestArticleNo", null);
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Post)('update-image-path'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
@@ -179,6 +180,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "UpdateProductImagePath", null);
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),

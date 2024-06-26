@@ -55,6 +55,7 @@ let ProductService = exports.ProductService = class ProductService {
             _id: productId,
         })
             .populate('productImages')
+            .sort({ 'createdAt': -1 })
             .exec();
         return getProductDetails;
     }

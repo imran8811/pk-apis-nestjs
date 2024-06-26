@@ -43,6 +43,8 @@ export class ProductController {
     return res? res.articleNo : '10050';
   }
 
+
+  @Public()
   @Post('update-image-path')
   async UpdateProductImagePath(@Res() response, @Body() productImageDTO: ProductImageDTO) {
     try {
@@ -62,6 +64,7 @@ export class ProductController {
     }
   }
 
+  @Public()
   @Post()
   async addProduct(@Res() response, @Body() addProductDTO: ProductDTO) {
     try {
