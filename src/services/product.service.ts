@@ -27,7 +27,7 @@ export class ProductService {
     //   productId,
     //   data
     // };
-    let update = data 
+    let update = data;
     const updateProduct = await this.product.findOneAndUpdate(filter, update, {new: true});
     return updateProduct;
   }

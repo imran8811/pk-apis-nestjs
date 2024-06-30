@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthController } from './auth.controller';
+import { UserAccountController } from './user-account.controller';
 import { AuthService } from 'src/services';
 import { User, UserSchema } from 'src/schemas';
 import { JwtModule, JwtService } from '@nestjs/jwt';
@@ -23,7 +24,7 @@ import { APP_GUARD } from '@nestjs/core';
       signOptions: { expiresIn: '7d' },
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, UserAccountController],
   providers: [
     AuthService,
     {

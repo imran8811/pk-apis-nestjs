@@ -48,7 +48,7 @@ let AdminController = exports.AdminController = class AdminController {
             });
         }
         catch (err) {
-            return response.status(common_1.HttpStatus.NOT_FOUND).json({
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
                 type: 'error',
                 message: 'Invalid Email/Password',
             });

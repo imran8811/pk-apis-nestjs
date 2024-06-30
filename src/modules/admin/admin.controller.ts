@@ -40,7 +40,7 @@ export class AdminController {
     } catch(err){
       // console.log(err);
       // if(err === '445'){
-        return response.status(HttpStatus.NOT_FOUND).json({
+        return response.status(HttpStatus.BAD_REQUEST).json({
           type: 'error',
           message: 'Invalid Email/Password',
         })

@@ -10,6 +10,7 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_controller_1 = require("./auth.controller");
+const user_account_controller_1 = require("./user-account.controller");
 const services_1 = require("../../services");
 const schemas_1 = require("../../schemas");
 const jwt_1 = require("@nestjs/jwt");
@@ -33,7 +34,7 @@ exports.AuthModule = AuthModule = __decorate([
                 signOptions: { expiresIn: '7d' },
             }),
         ],
-        controllers: [auth_controller_1.AuthController],
+        controllers: [auth_controller_1.AuthController, user_account_controller_1.UserAccountController],
         providers: [
             services_1.AuthService,
             {
