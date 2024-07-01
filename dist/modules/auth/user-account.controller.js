@@ -44,6 +44,18 @@ let UserAccountController = exports.UserAccountController = class UserAccountCon
             throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NO_CONTENT);
         }
     }
+    async getUserAddressById(response, param) {
+        const userAddress = await this.userAccountService.getUserAddressById(param.id);
+        if (userAddress) {
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                data: userAddress
+            });
+        }
+        else {
+            throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NO_CONTENT);
+        }
+    }
     async createUserAddress(response, userAddress) {
         try {
             const createUserAddress = await this.userAccountService.createUserAddress(userAddress);
@@ -57,6 +69,38 @@ let UserAccountController = exports.UserAccountController = class UserAccountCon
             return response.status(common_1.HttpStatus.NOT_FOUND).json({
                 type: 'error',
                 message: 'Unable to add user address',
+            });
+        }
+    }
+    async updateUserAddress(response, body) {
+        try {
+            const updateUserAddress = await this.userAccountService.updateUserAddress(body.userId, body);
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                message: 'User address updated successfully',
+                data: updateUserAddress
+            });
+        }
+        catch (err) {
+            return response.status(common_1.HttpStatus.NOT_FOUND).json({
+                type: 'error',
+                message: 'Unable to update user address',
+            });
+        }
+    }
+    async deleteUserAddressById(response, param) {
+        try {
+            const deleteUserAddress = await this.userAccountService.deleteUserAddress(param.userId, param.addressId);
+            return response.status(common_1.HttpStatus.OK).json({
+                type: 'success',
+                message: "Adress has been deleted successfully"
+            });
+        }
+        catch (err) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                statusCode: 400,
+                message: 'Error: Unable to delete address!',
+                error: 'Bad Request'
             });
         }
     }
@@ -78,6 +122,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserAccountController.prototype, "getUserAddresses", null);
 __decorate([
+    (0, common_1.Get)('user-address-by-id/:id'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserAccountController.prototype, "getUserAddressById", null);
+__decorate([
     (0, common_1.Post)('user-address'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Body)()),
@@ -85,6 +137,22 @@ __decorate([
     __metadata("design:paramtypes", [Object, user_address_dto_1.UserAddressDTO]),
     __metadata("design:returntype", Promise)
 ], UserAccountController.prototype, "createUserAddress", null);
+__decorate([
+    (0, common_1.Put)('user-address'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserAccountController.prototype, "updateUserAddress", null);
+__decorate([
+    (0, common_1.Delete)('user-address-by-id/:userId/:addressId'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserAccountController.prototype, "deleteUserAddressById", null);
 exports.UserAccountController = UserAccountController = __decorate([
     (0, common_1.Controller)('user-account'),
     __metadata("design:paramtypes", [user_account_service_1.UserAccountService])

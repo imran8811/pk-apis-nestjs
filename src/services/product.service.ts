@@ -23,10 +23,6 @@ export class ProductService {
 
   async updateProduct(productId, data): Promise<any>{
     let filter = { _id: productId }
-    // return {
-    //   productId,
-    //   data
-    // };
     let update = data;
     const updateProduct = await this.product.findOneAndUpdate(filter, update, {new: true});
     return updateProduct;

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, HttpException, UseGuards} from '@nestjs/common';
+import { Controller, Get, Post, Res, Param, Body, HttpStatus, Query, Delete, HttpException, UseGuards, Put} from '@nestjs/common';
 import { Public } from 'src/decorators/public.deco';
 import { UserDTO } from 'src/dtos';
 import { UserAddressDTO } from 'src/dtos/auth/user-address.dto';
@@ -37,6 +37,19 @@ export class UserAccountController {
     }
   }
 
+  @Get('user-address-by-id/:id')
+  async getUserAddressById(@Res() response, @Param() param) {
+    const userAddress = await this.userAccountService.getUserAddressById(param.id);
+    if(userAddress) {
+      return response.status(HttpStatus.CREATED).json({
+        type: 'success',
+        data: userAddress
+      })
+    } else {
+      throw new HttpException('User Not Found', HttpStatus.NO_CONTENT);
+    }
+  }
+
   @Post('user-address')
   async createUserAddress(@Res() response, @Body() userAddress: UserAddressDTO) {
     try {
@@ -54,22 +67,37 @@ export class UserAccountController {
     }
   }
 
-  // @Post('logout')
-  // async userLogout(@Res() response, @Body() body) {
-  //   try {
-  //     const userLogin = await this.authService.userLogout(body.userId);
-  //     return response.status(HttpStatus.CREATED).json({
-  //       type: 'success',
-  //       data: userLogin
-  //     })
-  //   } catch(err){
-  //     // console.log(err);
-  //     // if(err === '445'){
-  //       return response.status(HttpStatus.NOT_FOUND).json({
-  //         type: 'error',
-  //         message: 'Unable to logout user',
-  //       })
-  //     // }
-  //   }
-  // }
+  @Put('user-address')
+  async updateUserAddress(@Res() response, @Body() body) {
+    try {
+      const updateUserAddress = await this.userAccountService.updateUserAddress(body.userId, body);
+      return response.status(HttpStatus.CREATED).json({
+        type: 'success',
+        message: 'User address updated successfully',
+        data: updateUserAddress
+      })
+    } catch(err){
+      return response.status(HttpStatus.NOT_FOUND).json({
+        type: 'error',
+        message: 'Unable to update user address',
+      })
+    }
+  }
+
+  @Delete('user-address-by-id/:userId/:addressId')
+  async deleteUserAddressById(@Res() response, @Param() param) {
+    try {
+      const deleteUserAddress = await this.userAccountService.deleteUserAddress(param.userId, param.addressId);
+      return response.status(HttpStatus.OK).json({
+        type: 'success',
+        message: "Adress has been deleted successfully"
+      })
+    } catch(err){
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        statusCode: 400,
+        message: 'Error: Unable to delete address!',
+        error: 'Bad Request'
+      })
+    }
+  }
 }

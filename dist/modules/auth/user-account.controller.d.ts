@@ -5,5 +5,8 @@ export declare class UserAccountController {
     constructor(userAccountService: UserAccountService);
     getUserAccount(response: any, param: any): Promise<any>;
     getUserAddresses(response: any, param: any): Promise<any>;
+    getUserAddressById(response: any, param: any): Promise<any>;
     createUserAddress(response: any, userAddress: UserAddressDTO): Promise<any>;
+    updateUserAddress(response: any, body: any): Promise<any>;
+    deleteUserAddressById(response: any, param: any): Promise<any>;
 }

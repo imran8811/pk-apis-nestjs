@@ -8,5 +8,8 @@ export declare class UserAccountService {
     constructor(userModel: Model<IUser>, userAddressModel: Model<IUserAddress>);
     getUserAccount(id: string): Promise<any>;
     getUserAddresses(id: string): Promise<any>;
+    getUserAddressById(id: string): Promise<any>;
     createUserAddress(userAddressDTO: UserAddressDTO): Promise<IUserAddress>;
+    updateUserAddress(userId: string, data: IUserAddress): Promise<IUserAddress>;
+    deleteUserAddress(userId: string, addressId: string): Promise<import("mongodb").DeleteResult>;
 }

@@ -38,9 +38,27 @@ let UserAccountService = exports.UserAccountService = class UserAccountService {
         }).exec();
         return userAddresses;
     }
+    async getUserAddressById(id) {
+        const userAddress = await this.userAddressModel.find({
+            _id: id
+        }).exec();
+        return userAddress;
+    }
     async createUserAddress(userAddressDTO) {
         const newUserAddress = new this.userAddressModel(userAddressDTO);
         return newUserAddress.save();
+    }
+    async updateUserAddress(userId, data) {
+        let filter = { _id: data.addressId, userId };
+        let update = data;
+        const updateUserAddress = await this.userAddressModel.findOneAndUpdate(filter, update, { new: true });
+        return updateUserAddress;
+    }
+    async deleteUserAddress(userId, addressId) {
+        return await this.userAddressModel.deleteOne({
+            _id: addressId,
+            userId,
+        }).exec();
     }
 };
 exports.UserAccountService = UserAccountService = __decorate([
