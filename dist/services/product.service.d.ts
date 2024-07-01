@@ -31,7 +31,7 @@ export declare class ProductService {
     private product;
     private productImages;
     constructor(product: Model<IProduct>, productImages: Model<IProductImage>);
-    addProduct(addProductDTO: ProductDTO): Promise<IProduct>;
+    addProduct(productDTO: ProductDTO): Promise<IProduct>;
     updateProduct(productId: any, data: any): Promise<any>;
     getProductByCategoryDept(dept: string, category: string): Promise<Omit<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{
         _id: string;

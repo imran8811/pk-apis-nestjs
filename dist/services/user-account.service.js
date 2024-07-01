@@ -16,28 +16,38 @@ exports.UserAccountService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const jwt_1 = require("@nestjs/jwt");
 let UserAccountService = exports.UserAccountService = class UserAccountService {
-    constructor(userModel, jwtService) {
+    constructor(userModel, userAddressModel) {
         this.userModel = userModel;
-        this.jwtService = jwtService;
+        this.userAddressModel = userAddressModel;
     }
     async getUserAccount(id) {
         const userLogin = await this.userModel.findOne({
-            id
+            _id: id
         }).exec();
-        if (userLogin) {
-            return userLogin;
-        }
-        else {
-            throw new Error('User Not Found');
-        }
+        return {
+            businessName: userLogin.businessName,
+            email: userLogin.email,
+            contactNo: userLogin.contactNo,
+            createdAt: userLogin.createdAt
+        };
+    }
+    async getUserAddresses(id) {
+        const userAddresses = await this.userAddressModel.find({
+            userId: id
+        }).exec();
+        return userAddresses;
+    }
+    async createUserAddress(userAddressDTO) {
+        const newUserAddress = new this.userAddressModel(userAddressDTO);
+        return newUserAddress.save();
     }
 };
 exports.UserAccountService = UserAccountService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('User')),
+    __param(1, (0, mongoose_1.InjectModel)('UserAddress')),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        jwt_1.JwtService])
+        mongoose_2.Model])
 ], UserAccountService);
 //# sourceMappingURL=user-account.service.js.map

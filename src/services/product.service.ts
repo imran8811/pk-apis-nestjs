@@ -16,8 +16,8 @@ export class ProductService {
     @InjectModel('ProductImages') private productImages: Model<IProductImage>
   ){}
 
-  async addProduct(addProductDTO: ProductDTO): Promise<IProduct>{
-    const newProduct = new this.product(addProductDTO);
+  async addProduct(productDTO: ProductDTO): Promise<IProduct>{
+    const newProduct = new this.product(productDTO);
     return newProduct.save();
   }
 

@@ -9,6 +9,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from 'src/constants';
 import { AuthGuard } from 'src/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { UserAccountService } from 'src/services/user-account.service';
+import { UserAddress, UserAddressSchema } from 'src/schemas/user-address.schema';
 
 @Module({
   imports: [
@@ -16,6 +18,10 @@ import { APP_GUARD } from '@nestjs/core';
       {
         name: User.name,
         schema: UserSchema
+      },
+      {
+        name: UserAddress.name,
+        schema: UserAddressSchema
       }
     ]),
     JwtModule.register({
@@ -27,6 +33,7 @@ import { APP_GUARD } from '@nestjs/core';
   controllers: [AuthController, UserAccountController],
   providers: [
     AuthService,
+    UserAccountService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,

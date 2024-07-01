@@ -21,8 +21,8 @@ let ProductService = exports.ProductService = class ProductService {
         this.product = product;
         this.productImages = productImages;
     }
-    async addProduct(addProductDTO) {
-        const newProduct = new this.product(addProductDTO);
+    async addProduct(productDTO) {
+        const newProduct = new this.product(productDTO);
         return newProduct.save();
     }
     async updateProduct(productId, data) {

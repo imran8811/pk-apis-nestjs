@@ -6,23 +6,39 @@ import * as bcrypt from 'bcrypt';
 import { IUser } from 'src/interfaces';
 import { UserDTO } from 'src/dtos/';
 import { JwtService } from '@nestjs/jwt';
+import { IUserAddress } from 'src/interfaces/user-address.interface';
+import { UserAddressDTO } from 'src/dtos/auth/user-address.dto';
 
 @Injectable()
 export class UserAccountService {
 
   constructor(
     @InjectModel('User') private userModel: Model<IUser>,
-    private jwtService: JwtService
+    @InjectModel('UserAddress') private userAddressModel: Model<IUserAddress>,
   ){}
 
   async getUserAccount(id:string): Promise<any>{
     const userLogin = await this.userModel.findOne({
-      id
+      _id: id
     }).exec();
-    if(userLogin){
-      return userLogin
-    } else {
-      throw new Error('User Not Found');
-    }
+    
+    return {
+      businessName: userLogin.businessName,
+      email: userLogin.email,
+      contactNo: userLogin.contactNo,
+      createdAt: userLogin.createdAt
+    };
+  }
+
+  async getUserAddresses(id:string): Promise<any>{
+    const userAddresses = await this.userAddressModel.find({
+      userId: id
+    }).exec();
+    return userAddresses;
+  }
+
+  async createUserAddress(userAddressDTO : UserAddressDTO): Promise<IUserAddress>{
+    const newUserAddress = new this.userAddressModel(userAddressDTO);
+    return newUserAddress.save();
   }
 }

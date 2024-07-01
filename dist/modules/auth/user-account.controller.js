@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserAccountController = void 0;
 const common_1 = require("@nestjs/common");
+const user_address_dto_1 = require("../../dtos/auth/user-address.dto");
 const user_account_service_1 = require("../../services/user-account.service");
 let UserAccountController = exports.UserAccountController = class UserAccountController {
     constructor(userAccountService) {
@@ -31,6 +32,34 @@ let UserAccountController = exports.UserAccountController = class UserAccountCon
             throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NO_CONTENT);
         }
     }
+    async getUserAddresses(response, param) {
+        const userAddresses = await this.userAccountService.getUserAddresses(param.id);
+        if (userAddresses) {
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                data: userAddresses
+            });
+        }
+        else {
+            throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NO_CONTENT);
+        }
+    }
+    async createUserAddress(response, userAddress) {
+        try {
+            const createUserAddress = await this.userAccountService.createUserAddress(userAddress);
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                message: 'User address added successfully',
+                data: createUserAddress
+            });
+        }
+        catch (err) {
+            return response.status(common_1.HttpStatus.NOT_FOUND).json({
+                type: 'error',
+                message: 'Unable to add user address',
+            });
+        }
+    }
 };
 __decorate([
     (0, common_1.Get)(':id'),
@@ -40,6 +69,22 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserAccountController.prototype, "getUserAccount", null);
+__decorate([
+    (0, common_1.Get)('user-address/:id'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserAccountController.prototype, "getUserAddresses", null);
+__decorate([
+    (0, common_1.Post)('user-address'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_address_dto_1.UserAddressDTO]),
+    __metadata("design:returntype", Promise)
+], UserAccountController.prototype, "createUserAddress", null);
 exports.UserAccountController = UserAccountController = __decorate([
     (0, common_1.Controller)('user-account'),
     __metadata("design:paramtypes", [user_account_service_1.UserAccountService])

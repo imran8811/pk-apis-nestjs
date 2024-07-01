@@ -17,6 +17,8 @@ const jwt_1 = require("@nestjs/jwt");
 const constants_1 = require("../../constants");
 const auth_guard_1 = require("../../auth.guard");
 const core_1 = require("@nestjs/core");
+const user_account_service_1 = require("../../services/user-account.service");
+const user_address_schema_1 = require("../../schemas/user-address.schema");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
@@ -26,6 +28,10 @@ exports.AuthModule = AuthModule = __decorate([
                 {
                     name: schemas_1.User.name,
                     schema: schemas_1.UserSchema
+                },
+                {
+                    name: user_address_schema_1.UserAddress.name,
+                    schema: user_address_schema_1.UserAddressSchema
                 }
             ]),
             jwt_1.JwtModule.register({
@@ -37,6 +43,7 @@ exports.AuthModule = AuthModule = __decorate([
         controllers: [auth_controller_1.AuthController, user_account_controller_1.UserAccountController],
         providers: [
             services_1.AuthService,
+            user_account_service_1.UserAccountService,
             {
                 provide: core_1.APP_GUARD,
                 useClass: auth_guard_1.AuthGuard,
