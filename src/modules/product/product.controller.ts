@@ -36,14 +36,13 @@ export class ProductController {
     return res;
   }
   
-  @Public()
-  @Get(':dept')
-  async getProductByDept(@Param() param) {
-    const res = await this.productService.getProductByDept(param.dept);
-    return res;
-  }
+  // @Public()
+  // @Get(':dept')
+  // async getProductByDept(@Param() param) {
+  //   const res = await this.productService.getProductByDept(param.dept);
+  //   return res;
+  // }
 
-  @Public()
   @Get('getLatestArticleNo')
   async getLatestArticleNo() {
     const res = await this.productService.getLatestArticleNo();

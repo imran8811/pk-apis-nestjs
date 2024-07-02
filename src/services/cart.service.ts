@@ -63,14 +63,14 @@ export class CartService {
     });
   }
 
-  async deleteCartItem (productId:string): Promise<any> {
+  async deleteCartItemByProductId (productId:string): Promise<any> {
     return this.cartModel.deleteOne({
       productId
     }).exec()
   }
 
   async deleteCartItemByUserId (userId:string): Promise<any> {
-    return this.cartModel.deleteOne({
+    return this.cartModel.deleteMany({
       userId
     }).exec()
   }

@@ -68,13 +68,13 @@ let CartService = exports.CartService = class CartService {
             return false;
         });
     }
-    async deleteCartItem(productId) {
+    async deleteCartItemByProductId(productId) {
         return this.cartModel.deleteOne({
             productId
         }).exec();
     }
     async deleteCartItemByUserId(userId) {
-        return this.cartModel.deleteOne({
+        return this.cartModel.deleteMany({
             userId
         }).exec();
     }

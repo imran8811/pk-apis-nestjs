@@ -44,7 +44,7 @@ let CartController = exports.CartController = class CartController {
     }
     async deleteCartItem(params, response) {
         try {
-            const res = await this.cartService.deleteCartItem(params.id);
+            const res = await this.cartService.deleteCartItemByProductId(params.id);
             return response.status(common_1.HttpStatus.OK).json({
                 type: 'success',
                 message: 'Item deleted successfully',

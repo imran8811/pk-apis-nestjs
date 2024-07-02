@@ -37,6 +37,7 @@ let ProductService = exports.ProductService = class ProductService {
             category
         })
             .populate('productImages')
+            .sort({ 'createdAt': -1 })
             .exec();
         return getProducts;
     }
@@ -68,7 +69,7 @@ let ProductService = exports.ProductService = class ProductService {
         return getProductDetails;
     }
     getAllProducts() {
-        const getAllProducts = this.product.find().populate('productImages').exec();
+        const getAllProducts = this.product.find().populate('productImages').sort({ 'createdAt': -1 }).exec();
         return getAllProducts;
     }
     deleteProductById(articleNo) {

@@ -33,6 +33,6 @@ export declare class CartService {
     }, never>[]>;
     saveItem(cartDTO: CartDTO): Promise<any>;
     itemAlreadyExists(productId: string, userId: string): Promise<boolean>;
-    deleteCartItem(productId: string): Promise<any>;
+    deleteCartItemByProductId(productId: string): Promise<any>;
     deleteCartItemByUserId(userId: string): Promise<any>;
 }

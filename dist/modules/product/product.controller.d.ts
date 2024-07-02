@@ -41,9 +41,6 @@ export declare class ProductController {
     getProductByCategoryDept(param: any): Promise<Omit<import("mongoose").Document<unknown, {}, import("../../interfaces").IProduct> & import("../../interfaces").IProduct & Required<{
         _id: string;
     }>, never>[]>;
-    getProductByDept(param: any): Promise<Omit<import("mongoose").Document<unknown, {}, import("../../interfaces").IProduct> & import("../../interfaces").IProduct & Required<{
-        _id: string;
-    }>, never>[]>;
     getLatestArticleNo(): Promise<string>;
     UpdateProductImagePath(response: any, productImageDTO: ProductImageDTO): Promise<any>;
     addProduct(response: any, addProductDTO: ProductDTO): Promise<any>;

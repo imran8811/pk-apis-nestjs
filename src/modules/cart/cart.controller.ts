@@ -41,7 +41,7 @@ export class CartController {
   @Delete(':id')
   async deleteCartItem(@Param() params, @Res() response){
     try {
-      const res = await this.cartService.deleteCartItem(params.id);
+      const res = await this.cartService.deleteCartItemByProductId(params.id);
       return response.status(HttpStatus.OK).json({
         type: 'success',
         message: 'Item deleted successfully',
