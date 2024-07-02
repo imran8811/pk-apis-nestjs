@@ -38,6 +38,15 @@ export class ProductService {
     return getProducts;
   }
 
+  getProductByDept(dept: string){
+    const getProducts = this.product.find({
+      dept,
+    })
+    .populate('productImages')
+    .exec();
+    return getProducts;
+  }
+
   getProductById(productId:number){
     const getProductById = this.product.findOne({
       _id : productId

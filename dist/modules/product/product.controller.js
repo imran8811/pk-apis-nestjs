@@ -38,6 +38,10 @@ let ProductController = exports.ProductController = class ProductController {
         const res = await this.productService.getProductByCategoryDept(param.dept, param.category);
         return res;
     }
+    async getProductByDept(param) {
+        const res = await this.productService.getProductByDept(param.dept);
+        return res;
+    }
     async getLatestArticleNo() {
         const res = await this.productService.getLatestArticleNo();
         return res ? res.articleNo : '10050';
@@ -163,6 +167,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getProductByCategoryDept", null);
+__decorate([
+    (0, public_deco_1.Public)(),
+    (0, common_1.Get)(':dept'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "getProductByDept", null);
 __decorate([
     (0, public_deco_1.Public)(),
     (0, common_1.Get)('getLatestArticleNo'),

@@ -40,6 +40,14 @@ let ProductService = exports.ProductService = class ProductService {
             .exec();
         return getProducts;
     }
+    getProductByDept(dept) {
+        const getProducts = this.product.find({
+            dept,
+        })
+            .populate('productImages')
+            .exec();
+        return getProducts;
+    }
     getProductById(productId) {
         const getProductById = this.product.findOne({
             _id: productId
