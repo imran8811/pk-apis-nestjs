@@ -22,13 +22,26 @@ let OrderController = exports.OrderController = class OrderController {
         this.cartService = cartService;
     }
     async getAllOrdersByUser(queryParams) {
-        const res = this.orderService.getAllOrdersByUser(queryParams.userId);
+        let res = await this.orderService.getAllOrdersByUser(queryParams.userId);
         return res;
+    }
+    async getShippingAddressById(shippingAddressId) {
+        const res = await this.orderService.getShippingAddressById(shippingAddressId);
+        return res;
+    }
+    async generateOrderId() {
+        const res = await this.orderService.generateOrderId();
+        return res ? res : 168898;
     }
     async createOrder(orderDTO, response) {
         try {
             const deleteCartItem = this.deleteCartItemByUserId(orderDTO.userId);
             if (deleteCartItem) {
+                let orderId;
+                await this.generateOrderId().then(item => {
+                    orderId = Number(item) + 20;
+                });
+                orderDTO = { ...orderDTO, orderId };
                 const res = await this.orderService.createOrder(orderDTO);
                 return response.status(common_1.HttpStatus.CREATED).json({
                     type: 'success',

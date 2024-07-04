@@ -3,7 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { OrderDTO } from 'src/dtos';
 import { IOrder, ICart } from 'src/interfaces';
-import { Cart, Order } from 'src/schemas';
+import { IUserAddress } from 'src/interfaces/user-address.interface';
+import { Cart, Order, UserAddress } from 'src/schemas';
+import { UserAccountService } from './user-account.service';
 
 @Injectable()
 export class OrderService {
@@ -11,13 +13,13 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<IOrder>,
     @InjectModel(Cart.name) private cartModel: Model<ICart>,
+    private userAccountService: UserAccountService,
   ){}
 
   getAllOrdersByUser(userId: string){
     const getOrders = this.orderModel.find({
       userId
     })
-    .populate('productDetails')
     .exec();
     return getOrders;
   }
@@ -27,21 +29,16 @@ export class OrderService {
     const res = await saveItem.save();
     return res;
   }
-  
-  // async itemAlreadyExists (productId:string): Promise<boolean> {
-  //   return this.cartModel.findOne({
-  //     productId
-  //   }).then(item => {
-  //     if (item) return true;
-  //     return false;
-  //   });
-  // }
 
-  // async deleteCartItem (productId:string): Promise<any> {
-  //   return this.cartModel.deleteOne({
-  //     productId
-  //   }).exec()
-  // }
+  async generateOrderId() {
+    const res = await this.orderModel.findOne().sort({'createdAt' : -1}).exec();
+    return res? res.orderId : '165566';
+  }
+
+  async getShippingAddressById(shippingAddressId) {
+    const res = await this.userAccountService.getUserAddressById(shippingAddressId)
+    return res;
+  }
 
   async deleteCartItemByUserId (userId:string): Promise<any> {
     return this.cartModel.deleteOne({

@@ -34,5 +34,6 @@ export declare class CartService {
     saveItem(cartDTO: CartDTO): Promise<any>;
     itemAlreadyExists(productId: string, userId: string): Promise<boolean>;
     deleteCartItemByProductId(productId: string): Promise<any>;
+    updateCartItemUserId(guestUserId: string, loggedInUserId: string): Promise<any>;
     deleteCartItemByUserId(userId: string): Promise<any>;
 }

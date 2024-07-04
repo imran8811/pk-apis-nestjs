@@ -26,9 +26,11 @@ import { Document } from 'mongoose';
 import { Product } from './product.schema';
 export type OrderDocument = Order & Document;
 export declare class Order {
+    orderId: number;
     items: object[];
-    shippingAddress: string;
-    orderAmount: string;
+    shippingAddressId: string;
+    totalAmount: string;
+    totalQuantity: string;
     userId: string;
     productDetails: Product;
 }

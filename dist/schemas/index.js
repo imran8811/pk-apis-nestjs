@@ -19,4 +19,5 @@ __exportStar(require("./admin.schema"), exports);
 __exportStar(require("./product.schema"), exports);
 __exportStar(require("./cart.schema"), exports);
 __exportStar(require("./order.schema"), exports);
+__exportStar(require("./user-address.schema"), exports);
 //# sourceMappingURL=index.js.map

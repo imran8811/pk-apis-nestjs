@@ -17,22 +17,31 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const schemas_1 = require("../schemas");
+const user_account_service_1 = require("./user-account.service");
 let OrderService = exports.OrderService = class OrderService {
-    constructor(orderModel, cartModel) {
+    constructor(orderModel, cartModel, userAccountService) {
         this.orderModel = orderModel;
         this.cartModel = cartModel;
+        this.userAccountService = userAccountService;
     }
     getAllOrdersByUser(userId) {
         const getOrders = this.orderModel.find({
             userId
         })
-            .populate('productDetails')
             .exec();
         return getOrders;
     }
     async createOrder(orderDTO) {
         const saveItem = new this.orderModel(orderDTO);
         const res = await saveItem.save();
+        return res;
+    }
+    async generateOrderId() {
+        const res = await this.orderModel.findOne().sort({ 'createdAt': -1 }).exec();
+        return res ? res.orderId : '165566';
+    }
+    async getShippingAddressById(shippingAddressId) {
+        const res = await this.userAccountService.getUserAddressById(shippingAddressId);
         return res;
     }
     async deleteCartItemByUserId(userId) {
@@ -46,6 +55,7 @@ exports.OrderService = OrderService = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(schemas_1.Order.name)),
     __param(1, (0, mongoose_1.InjectModel)(schemas_1.Cart.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model])
+        mongoose_2.Model,
+        user_account_service_1.UserAccountService])
 ], OrderService);
 //# sourceMappingURL=order.service.js.map

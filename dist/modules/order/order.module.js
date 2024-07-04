@@ -12,6 +12,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const services_1 = require("../../services");
 const order_controller_1 = require("./order.controller");
 const schemas_1 = require("../../schemas");
+const user_account_service_1 = require("../../services/user-account.service");
 let OrderModule = exports.OrderModule = class OrderModule {
 };
 exports.OrderModule = OrderModule = __decorate([
@@ -25,11 +26,19 @@ exports.OrderModule = OrderModule = __decorate([
                 {
                     name: schemas_1.Cart.name,
                     schema: schemas_1.CartSchema
+                },
+                {
+                    name: schemas_1.User.name,
+                    schema: schemas_1.UserSchema
+                },
+                {
+                    name: schemas_1.UserAddress.name,
+                    schema: schemas_1.UserAddressSchema
                 }
-            ])
+            ]),
         ],
         controllers: [order_controller_1.OrderController],
-        providers: [services_1.OrderService, services_1.CartService],
+        providers: [services_1.OrderService, services_1.CartService, user_account_service_1.UserAccountService],
     })
 ], OrderModule);
 //# sourceMappingURL=order.module.js.map

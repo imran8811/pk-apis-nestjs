@@ -3,6 +3,7 @@ import { AuthGuard } from 'src/auth.guard';
 import { Public } from 'src/decorators/public.deco';
 
 import { OrderDTO } from 'src/dtos';
+import { IUserAddress } from 'src/interfaces/user-address.interface';
 import { CartService, OrderService } from 'src/services';
 
 @Controller('order')
@@ -11,8 +12,25 @@ export class OrderController {
 
   @Get('getAll')
   async getAllOrdersByUser(@Query() queryParams){
-    const res = this.orderService.getAllOrdersByUser(queryParams.userId);
+    let res = await this.orderService.getAllOrdersByUser(queryParams.userId);
+    // const test = [];
+    // res.map(async(item) => {
+    //   const shippingAddress = await this.getShippingAddressById(item.shippingAddressId);
+      
+    //   console.log(item)
+    // })
+    // return test;
     return res;
+  }
+
+  async getShippingAddressById(shippingAddressId) {
+    const res = await this.orderService.getShippingAddressById(shippingAddressId)
+    return res;
+  }
+
+  async generateOrderId() {
+    const res = await this.orderService.generateOrderId();
+    return res? res : 168898;
   }
 
   @Post('new')
@@ -20,6 +38,11 @@ export class OrderController {
     try {
       const deleteCartItem = this.deleteCartItemByUserId(orderDTO.userId)
       if(deleteCartItem){
+        let orderId;
+        await this.generateOrderId().then(item => {
+          orderId = Number(item) + 20;
+        });
+        orderDTO = {...orderDTO, orderId}
         const res = await this.orderService.createOrder(orderDTO);
         return response.status(HttpStatus.CREATED).json({
           type: 'success',

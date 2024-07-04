@@ -42,6 +42,23 @@ let CartController = exports.CartController = class CartController {
             });
         }
     }
+    async updateCartItemUserId(response, body) {
+        try {
+            const res = await this.cartService.updateCartItemUserId(body.guestUserId, body.loggedInUserId);
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                message: 'Cart User updated successfully',
+                data: res
+            });
+        }
+        catch (err) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                errorCode: 960,
+                message: 'Unable to update userId in cart!',
+                error: err
+            });
+        }
+    }
     async deleteCartItem(params, response) {
         try {
             const res = await this.cartService.deleteCartItemByProductId(params.id);
@@ -77,6 +94,15 @@ __decorate([
     __metadata("design:paramtypes", [cart_dto_1.CartDTO, Object]),
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "saveItem", null);
+__decorate([
+    (0, public_deco_1.Public)(),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], CartController.prototype, "updateCartItemUserId", null);
 __decorate([
     (0, public_deco_1.Public)(),
     (0, common_1.Delete)(':id'),

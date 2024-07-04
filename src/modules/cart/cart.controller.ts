@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put, Query} from '@nestjs/common';
+import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, Put, Query, Patch} from '@nestjs/common';
 import { Public } from 'src/decorators/public.deco';
 
 import { ProductDTO, ProductFilterDTO } from 'src/dtos';
@@ -31,6 +31,25 @@ export class CartController {
       return response.status(HttpStatus.BAD_REQUEST).json({
         errorCode: 960,
         message: 'Error: Item not added into cart!',
+        error: err
+      })
+    }
+  }
+  
+  @Public()
+  @Patch('')
+  async updateCartItemUserId(@Res() response, @Body() body){
+    try {
+      const res = await this.cartService.updateCartItemUserId(body.guestUserId, body.loggedInUserId);
+      return response.status(HttpStatus.CREATED).json({
+        type: 'success',
+        message: 'Cart User updated successfully',
+        data: res
+      })
+    } catch(err){
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        errorCode: 960,
+        message: 'Unable to update userId in cart!',
         error: err
       })
     }

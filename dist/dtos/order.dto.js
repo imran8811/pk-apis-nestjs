@@ -15,17 +15,25 @@ class OrderDTO {
 }
 exports.OrderDTO = OrderDTO;
 __decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], OrderDTO.prototype, "orderId", void 0);
+__decorate([
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], OrderDTO.prototype, "items", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], OrderDTO.prototype, "shippingAddress", void 0);
+], OrderDTO.prototype, "shippingAddressId", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], OrderDTO.prototype, "orderAmount", void 0);
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], OrderDTO.prototype, "totalAmount", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], OrderDTO.prototype, "totalQuantity", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

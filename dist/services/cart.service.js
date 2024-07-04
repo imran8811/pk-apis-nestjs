@@ -73,6 +73,17 @@ let CartService = exports.CartService = class CartService {
             productId
         }).exec();
     }
+    async updateCartItemUserId(guestUserId, loggedInUserId) {
+        const res = this.cartModel.updateOne({
+            userId: guestUserId
+        }, {
+            userId: loggedInUserId
+        }, {
+            upsert: false,
+            new: true
+        });
+        return res;
+    }
     async deleteCartItemByUserId(userId) {
         return this.cartModel.deleteMany({
             userId

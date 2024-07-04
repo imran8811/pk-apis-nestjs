@@ -32,5 +32,6 @@ export declare class CartController {
         _id: import("mongoose").Types.ObjectId;
     }, never>[]>;
     saveItem(cartDTO: CartDTO, response: any): Promise<any>;
+    updateCartItemUserId(response: any, body: any): Promise<any>;
     deleteCartItem(params: any, response: any): Promise<any>;
 }

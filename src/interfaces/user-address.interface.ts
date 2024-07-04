@@ -9,4 +9,5 @@ export interface IUserAddress extends Document {
   area: string;
   postalCode: string;
   addressType: string;
+  shippingAddressId: string;
 }

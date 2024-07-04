@@ -15,19 +15,27 @@ const product_schema_1 = require("./product.schema");
 let Order = exports.Order = class Order {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ type: Array }),
+    (0, mongoose_1.Prop)({ required: true, type: Number }),
+    __metadata("design:type", Number)
+], Order.prototype, "orderId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, type: Array }),
     __metadata("design:type", Array)
 ], Order.prototype, "items", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: String }),
+    (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
-], Order.prototype, "shippingAddress", void 0);
+], Order.prototype, "shippingAddressId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: String }),
+    (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
-], Order.prototype, "orderAmount", void 0);
+], Order.prototype, "totalAmount", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: String }),
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], Order.prototype, "totalQuantity", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
 ], Order.prototype, "userId", void 0);
 __decorate([

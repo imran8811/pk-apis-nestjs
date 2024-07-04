@@ -29,9 +29,11 @@ export declare class OrderController {
     private orderService;
     private cartService;
     constructor(orderService: OrderService, cartService: CartService);
-    getAllOrdersByUser(queryParams: any): Promise<Omit<import("mongoose").Document<unknown, {}, import("../../interfaces").IOrder> & import("../../interfaces").IOrder & {
+    getAllOrdersByUser(queryParams: any): Promise<(import("mongoose").Document<unknown, {}, import("../../interfaces").IOrder> & import("../../interfaces").IOrder & {
         _id: import("mongoose").Types.ObjectId;
-    }, never>[]>;
+    })[]>;
+    getShippingAddressById(shippingAddressId: any): Promise<any>;
+    generateOrderId(): Promise<number | "165566">;
     createOrder(orderDTO: OrderDTO, response: any): Promise<any>;
     deleteCartItemByUserId(userId: string): Promise<boolean>;
 }

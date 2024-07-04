@@ -25,13 +25,17 @@
 import { Model } from 'mongoose';
 import { OrderDTO } from 'src/dtos';
 import { IOrder, ICart } from 'src/interfaces';
+import { UserAccountService } from './user-account.service';
 export declare class OrderService {
     private orderModel;
     private cartModel;
-    constructor(orderModel: Model<IOrder>, cartModel: Model<ICart>);
-    getAllOrdersByUser(userId: string): Promise<Omit<import("mongoose").Document<unknown, {}, IOrder> & IOrder & {
+    private userAccountService;
+    constructor(orderModel: Model<IOrder>, cartModel: Model<ICart>, userAccountService: UserAccountService);
+    getAllOrdersByUser(userId: string): Promise<(import("mongoose").Document<unknown, {}, IOrder> & IOrder & {
         _id: import("mongoose").Types.ObjectId;
-    }, never>[]>;
+    })[]>;
     createOrder(orderDTO: OrderDTO): Promise<any>;
+    generateOrderId(): Promise<number | "165566">;
+    getShippingAddressById(shippingAddressId: any): Promise<any>;
     deleteCartItemByUserId(userId: string): Promise<any>;
 }

@@ -23,7 +23,7 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { HydratedDocument } from 'mongoose';
-export type UserDocument = HydratedDocument<UserAddress>;
+export type UserAddressDocument = HydratedDocument<UserAddress>;
 export declare class UserAddress {
     userId: string;
     country: string;

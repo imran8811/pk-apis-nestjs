@@ -1,6 +1,8 @@
 export declare class OrderDTO {
+    orderId: number;
     items: object[];
-    shippingAddress: string;
-    orderAmount: string;
+    shippingAddressId: string;
+    totalAmount: number;
+    totalQuantity: number;
     userId: string;
 }

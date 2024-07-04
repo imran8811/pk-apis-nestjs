@@ -3,9 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { CartService, OrderService } from '../../services';
 import { OrderController } from './order.controller';
-import { Cart, CartSchema, Order, OrderSchema } from 'src/schemas';
-import { CartController } from '../cart/cart.controller';
-import { CartModule } from '../cart/cart.module';
+import { Cart, CartSchema, Order, OrderSchema, UserAddress, UserAddressSchema, User, UserSchema } from 'src/schemas';
+import { UserAccountService } from 'src/services/user-account.service';
+import { UserAccountController } from '../auth/user-account.controller';
 
 @Module({
   imports: [
@@ -17,10 +17,19 @@ import { CartModule } from '../cart/cart.module';
       {
         name: Cart.name,
         schema: CartSchema
+      },
+      {
+        name: User.name,
+        schema: UserSchema
+      },
+      {
+        name: UserAddress.name,
+        schema: UserAddressSchema
       }
-    ])
+    ]),
+    
   ],
   controllers: [OrderController],
-  providers: [OrderService, CartService],
+  providers: [OrderService, CartService, UserAccountService],
 })
 export class OrderModule {}
