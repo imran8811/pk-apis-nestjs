@@ -27,7 +27,7 @@ let ProductController = exports.ProductController = class ProductController {
         return res;
     }
     async getProductById(param) {
-        const res = await this.productService.getProductById(param.id);
+        const res = await this.productService.getProductByArticleNo(param.articleNo);
         return res;
     }
     async getProductByCategoryDeptArticleNo(param) {
@@ -38,9 +38,9 @@ let ProductController = exports.ProductController = class ProductController {
         const res = await this.productService.getProductByCategoryDept(param.dept, param.category);
         return res;
     }
-    async getLatestArticleNo() {
-        const res = await this.productService.getLatestArticleNo();
-        return res ? res.articleNo : '10050';
+    async getProductByDept(param) {
+        const res = await this.productService.getProductByDept(param.dept);
+        return res;
     }
     async UpdateProductImagePath(response, productImageDTO) {
         try {
@@ -75,6 +75,10 @@ let ProductController = exports.ProductController = class ProductController {
                 error: err
             });
         }
+    }
+    async getLatestArticleNo() {
+        const res = await this.productService.getLatestArticleNo();
+        return res ? res.articleNo : '10050';
     }
     async updateProduct(response, body, params) {
         try {
@@ -141,7 +145,7 @@ __decorate([
 ], ProductController.prototype, "getAllProducts", null);
 __decorate([
     (0, public_deco_1.Public)(),
-    (0, common_1.Get)('details/:id'),
+    (0, common_1.Get)('details/:articleNo'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -164,11 +168,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getProductByCategoryDept", null);
 __decorate([
-    (0, common_1.Get)('getLatestArticleNo'),
+    (0, public_deco_1.Public)(),
+    (0, common_1.Get)(':dept'),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], ProductController.prototype, "getLatestArticleNo", null);
+], ProductController.prototype, "getProductByDept", null);
 __decorate([
     (0, public_deco_1.Public)(),
     (0, common_1.Post)('update-image-path'),
@@ -187,6 +193,12 @@ __decorate([
     __metadata("design:paramtypes", [Object, dtos_1.ProductDTO]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "addProduct", null);
+__decorate([
+    (0, common_1.Post)('getLatestArticleNo'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "getLatestArticleNo", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Res)()),

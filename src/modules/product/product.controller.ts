@@ -16,9 +16,9 @@ export class ProductController {
   }
   
   @Public()
-  @Get('details/:id')
+  @Get('details/:articleNo')
   async getProductById(@Param() param) {
-    const res = await this.productService.getProductById(param.id);
+    const res = await this.productService.getProductByArticleNo(param.articleNo);
     return res;
   }
   
@@ -36,17 +36,11 @@ export class ProductController {
     return res;
   }
   
-  // @Public()
-  // @Get(':dept')
-  // async getProductByDept(@Param() param) {
-  //   const res = await this.productService.getProductByDept(param.dept);
-  //   return res;
-  // }
-
-  @Get('getLatestArticleNo')
-  async getLatestArticleNo() {
-    const res = await this.productService.getLatestArticleNo();
-    return res? res.articleNo : '10050';
+  @Public()
+  @Get(':dept')
+  async getProductByDept(@Param() param) {
+    const res = await this.productService.getProductByDept(param.dept);
+    return res;
   }
 
   @Public()
@@ -86,6 +80,13 @@ export class ProductController {
         error: err
       })
     }
+  }
+
+  
+  @Post('getLatestArticleNo')
+  async getLatestArticleNo() {
+    const res = await this.productService.getLatestArticleNo();
+    return res? res.articleNo : '10050';
   }
 
   @Put(':id')

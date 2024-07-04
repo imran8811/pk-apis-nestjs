@@ -39,10 +39,10 @@ export declare class ProductService {
     getProductByDept(dept: string): Promise<Omit<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{
         _id: string;
     }>, never>[]>;
-    getProductById(productId: number): Promise<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{
+    getProductByArticleNo(articleNo: string): Promise<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{
         _id: string;
     }>>;
-    getProductByCategoryDeptArticleNo(dept: string, category: string, productId: string): Promise<Omit<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{
+    getProductByCategoryDeptArticleNo(dept: string, category: string, articleNo: string): Promise<Omit<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{
         _id: string;
     }>, never>[]>;
     getAllProducts(): Promise<Omit<import("mongoose").Document<unknown, {}, IProduct> & IProduct & Required<{

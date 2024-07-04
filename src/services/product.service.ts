@@ -48,20 +48,20 @@ export class ProductService {
     return getProducts;
   }
 
-  getProductById(productId:number){
+  getProductByArticleNo(articleNo:string){
     const getProductById = this.product.findOne({
-      _id : productId
+      articleNo
     })
     .populate('productImages')
     .exec();
     return getProductById;
   }
 
-  getProductByCategoryDeptArticleNo(dept: string, category: string, productId:string){
+  getProductByCategoryDeptArticleNo(dept: string, category: string, articleNo:string){
     const getProductDetails = this.product.find({
-      dept: dept,
-      category: category,
-      _id: productId,
+      dept,
+      category,
+      articleNo,
     })
     .populate('productImages')
     .sort({'createdAt': -1})
