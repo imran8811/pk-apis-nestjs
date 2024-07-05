@@ -26,6 +26,9 @@ export class Order {
   @Prop({ required: true, type: String })
   userId: string;
 
+  @Prop({ required: true, type: String })
+  status: string;
+
   @Prop({ type: Array, ref: 'Product' })
   productDetails: Product;
 }

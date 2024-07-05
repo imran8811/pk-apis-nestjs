@@ -8,4 +8,5 @@ export interface IOrder extends Document {
   totalQuantity: number;
   userId: string;
   shippingAddress:[];
+  status: string;
 }

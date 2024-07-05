@@ -13,13 +13,6 @@ export class OrderController {
   @Get('getAll')
   async getAllOrdersByUser(@Query() queryParams){
     let res = await this.orderService.getAllOrdersByUser(queryParams.userId);
-    // const test = [];
-    // res.map(async(item) => {
-    //   const shippingAddress = await this.getShippingAddressById(item.shippingAddressId);
-      
-    //   console.log(item)
-    // })
-    // return test;
     return res;
   }
 

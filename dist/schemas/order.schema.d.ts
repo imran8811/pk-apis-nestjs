@@ -32,6 +32,7 @@ export declare class Order {
     totalAmount: string;
     totalQuantity: string;
     userId: string;
+    status: string;
     productDetails: Product;
 }
 export declare const OrderSchema: import("mongoose").Schema<Order, import("mongoose").Model<Order, any, any, any, Document<unknown, any, Order> & Order & {

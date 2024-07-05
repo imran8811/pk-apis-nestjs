@@ -21,8 +21,8 @@ export class ProductService {
     return newProduct.save();
   }
 
-  async updateProduct(productId, data): Promise<any>{
-    let filter = { _id: productId }
+  async updateProduct(articleNo, data): Promise<any>{
+    let filter = { articleNo }
     let update = data;
     const updateProduct = await this.product.findOneAndUpdate(filter, update, {new: true});
     return updateProduct;

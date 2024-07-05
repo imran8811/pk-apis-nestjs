@@ -5,4 +5,5 @@ export declare class OrderDTO {
     totalAmount: number;
     totalQuantity: number;
     userId: string;
+    status: string;
 }

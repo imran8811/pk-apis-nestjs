@@ -38,4 +38,8 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], OrderDTO.prototype, "userId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], OrderDTO.prototype, "status", void 0);
 //# sourceMappingURL=order.dto.js.map

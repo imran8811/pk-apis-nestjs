@@ -25,8 +25,8 @@ let ProductService = exports.ProductService = class ProductService {
         const newProduct = new this.product(productDTO);
         return newProduct.save();
     }
-    async updateProduct(productId, data) {
-        let filter = { _id: productId };
+    async updateProduct(articleNo, data) {
+        let filter = { articleNo };
         let update = data;
         const updateProduct = await this.product.findOneAndUpdate(filter, update, { new: true });
         return updateProduct;

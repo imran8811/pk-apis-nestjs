@@ -14,4 +14,6 @@ export class OrderDTO {
   totalQuantity: number;
   @IsString()
   userId: string;
+  @IsString()
+  status: string;
 }

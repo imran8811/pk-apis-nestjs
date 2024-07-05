@@ -39,6 +39,10 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "userId", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], Order.prototype, "status", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: Array, ref: 'Product' }),
     __metadata("design:type", product_schema_1.Product)
 ], Order.prototype, "productDetails", void 0);
