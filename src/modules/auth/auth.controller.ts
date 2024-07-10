@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, HttpException, UseGuards} from '@nestjs/common';
+import { Controller, Get, Post, Res, Param, Body, HttpStatus, Delete, HttpException, UseGuards, UnauthorizedException, Headers} from '@nestjs/common';
 import { Public } from 'src/decorators/public.deco';
 import { UserDTO } from 'src/dtos';
 import { AuthService } from 'src/services';
@@ -34,32 +34,43 @@ export class AuthController {
         data: userLogin
       })
     } catch(err){
-      // console.log(err);
-      // if(err === '445'){
+      console.log(err);
+      if(err === '445'){
         return response.status(HttpStatus.NOT_FOUND).json({
           type: 'error',
           message: 'Invalid Email/Password',
         })
-      // }
+      }
     }
   }
 
   @Post('logout')
-  async userLogout(@Res() response, @Body() body) {
+  async userLogout(@Res() response, @Body() body, @Headers('Authorization') token) {
     try {
-      const userLogin = await this.authService.userLogout(body.userId);
+      const userLogin = await this.authService.userLogout(body.userId, token);
       return response.status(HttpStatus.CREATED).json({
         type: 'success',
         data: userLogin
       })
     } catch(err){
-      // console.log(err);
-      // if(err === '445'){
-        return response.status(HttpStatus.NOT_FOUND).json({
-          type: 'error',
-          message: 'Unable to logout user',
-        })
-      // }
+      return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        type: 'error',
+        message: 'Unable to logout user',
+        err
+      })
+    }
+  }
+  
+  @Post('refresh-token')
+  async getRefreshToken(@Res() response, @Body() body) {
+    try {
+      const getRefreshToken = await this.authService.getRefreshToken(body.oldRefreshToken);
+      return response.status(HttpStatus.CREATED).json({
+        type: 'success',
+        data: getRefreshToken
+      })
+    } catch(err){
+      throw new UnauthorizedException();
     }
   }
 }

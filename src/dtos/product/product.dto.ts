@@ -29,6 +29,8 @@ export class ProductDTO {
   readonly slug: string;
   @IsString()
   readonly length: string;
+  @IsString()
+  readonly pieceWeight: string;
   @IsArray()
   @IsOptional()
   readonly productImages?: string[];

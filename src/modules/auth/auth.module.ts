@@ -11,6 +11,7 @@ import { AuthGuard } from 'src/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { UserAccountService } from 'src/services/user-account.service';
 import { UserAddress, UserAddressSchema } from 'src/schemas/user-address.schema';
+import { RefreshToken, RefreshTokenSchema } from 'src/schemas/refresh-token.schema';
 
 @Module({
   imports: [
@@ -22,12 +23,17 @@ import { UserAddress, UserAddressSchema } from 'src/schemas/user-address.schema'
       {
         name: UserAddress.name,
         schema: UserAddressSchema
+      },
+      {
+        name: RefreshToken.name,
+        schema: RefreshTokenSchema
       }
     ]),
-    JwtModule.register({
-      global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '7d' },
+    JwtModule.registerAsync({
+      useFactory : () => ({
+        secret: jwtConstants.secret,
+        signOptions: { expiresIn: '7d' },
+      })
     }),
   ],
   controllers: [AuthController, UserAccountController],
