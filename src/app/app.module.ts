@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule, AdminModule, AuthModule, CartModule, OrderModule } from 'src/modules';
 import { CartService, OrderService } from 'src/services';
-import config from '../../config';
 
 @Module({
   imports: [

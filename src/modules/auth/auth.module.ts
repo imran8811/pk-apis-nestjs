@@ -29,12 +29,11 @@ import { RefreshToken, RefreshTokenSchema } from 'src/schemas/refresh-token.sche
         schema: RefreshTokenSchema
       }
     ]),
-    JwtModule.registerAsync({
-      useFactory : () => ({
-        secret: jwtConstants.secret,
-        signOptions: { expiresIn: '7d' },
-      })
-    }),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '7d' }
+    })
   ],
   controllers: [AuthController, UserAccountController],
   providers: [
