@@ -70,12 +70,12 @@ export class CartService {
   }
   
   async updateCartItemUserId (guestUserId:string, loggedInUserId:string): Promise<any> {
-    const res = this.cartModel.updateOne({
+    const res = this.cartModel.updateMany({
       userId: guestUserId
     }, {
       userId : loggedInUserId
     }, {
-      upsert: false, 
+      upsert: false,
       new: true
     })
     return res;

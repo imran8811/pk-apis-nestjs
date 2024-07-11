@@ -44,6 +44,7 @@ export class ProductService {
       dept,
     })
     .populate('productImages')
+    .sort({'createdAt': -1})
     .exec();
     return getProducts;
   }

@@ -74,7 +74,7 @@ let CartService = exports.CartService = class CartService {
         }).exec();
     }
     async updateCartItemUserId(guestUserId, loggedInUserId) {
-        const res = this.cartModel.updateOne({
+        const res = this.cartModel.updateMany({
             userId: guestUserId
         }, {
             userId: loggedInUserId
