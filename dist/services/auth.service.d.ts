@@ -23,6 +23,7 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
+import { HttpService } from '@nestjs/axios';
 import { IUser } from 'src/interfaces';
 import { UserDTO } from 'src/dtos/';
 import { JwtService } from '@nestjs/jwt';
@@ -31,7 +32,8 @@ export declare class AuthService {
     private userModel;
     private refreshToken;
     private jwtService;
-    constructor(userModel: Model<IUser>, refreshToken: Model<IRefreshToken>, jwtService: JwtService);
+    private httpService;
+    constructor(userModel: Model<IUser>, refreshToken: Model<IRefreshToken>, jwtService: JwtService, httpService: HttpService);
     userRegister(userDTO: UserDTO): Promise<any>;
     userExists(email: string): Promise<boolean>;
     userLogin(email: string, password: string): Promise<any>;
@@ -43,5 +45,6 @@ export declare class AuthService {
         _id: string;
     }>>;
     getRefreshToken(refreshToken: string): Promise<void>;
+    checkUserCountry(): Promise<boolean>;
     userLogout(userId: string, token: string): Promise<any>;
 }

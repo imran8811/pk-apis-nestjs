@@ -18,12 +18,16 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
+const axios_1 = require("@nestjs/axios");
 const jwt_1 = require("@nestjs/jwt");
+const constants_1 = require("../constants");
+const rxjs_1 = require("rxjs");
 let AuthService = exports.AuthService = class AuthService {
-    constructor(userModel, refreshToken, jwtService) {
+    constructor(userModel, refreshToken, jwtService, httpService) {
         this.userModel = userModel;
         this.refreshToken = refreshToken;
         this.jwtService = jwtService;
+        this.httpService = httpService;
     }
     async userRegister(userDTO) {
         const checkUserExists = await this.userExists(userDTO.email);
@@ -96,6 +100,11 @@ let AuthService = exports.AuthService = class AuthService {
         if (verifyRefreshToken) {
         }
     }
+    async checkUserCountry() {
+        const url = 'http://ip-api.com/json/';
+        const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(url));
+        return constants_1.RESTRICTED_COUNTRIES.includes(data.countryCode) ? false : true;
+    }
     async userLogout(userId, token) {
         const decoded = this.jwtService.verify(token.split(' ')[1], { 'secret': 'lkdjfldkjfklsd0980980f9sd8f0sd98f0s9d8f//$$$098098' });
         if (decoded.sub) {
@@ -112,6 +121,7 @@ exports.AuthService = AuthService = __decorate([
     __param(1, (0, mongoose_1.InjectModel)('RefreshToken')),
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        axios_1.HttpService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

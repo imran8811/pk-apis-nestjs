@@ -12,6 +12,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { UserAccountService } from 'src/services/user-account.service';
 import { UserAddress, UserAddressSchema } from 'src/schemas/user-address.schema';
 import { RefreshToken, RefreshTokenSchema } from 'src/schemas/refresh-token.schema';
+import { HttpModule, HttpService } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { RefreshToken, RefreshTokenSchema } from 'src/schemas/refresh-token.sche
       global: true,
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '7d' }
-    })
+    }),
+    HttpModule
   ],
   controllers: [AuthController, UserAccountController],
   providers: [

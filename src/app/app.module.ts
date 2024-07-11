@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule, AdminModule, AuthModule, CartModule, OrderModule } from 'src/modules';
 import { CartService, OrderService } from 'src/services';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { CartService, OrderService } from 'src/services';
     AdminModule,
     AuthModule,
     CartModule,
-    OrderModule
+    OrderModule,
+    HttpModule
   ],
   controllers: [AppController],
   providers: [AppService],

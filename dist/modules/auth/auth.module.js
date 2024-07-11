@@ -20,6 +20,7 @@ const core_1 = require("@nestjs/core");
 const user_account_service_1 = require("../../services/user-account.service");
 const user_address_schema_1 = require("../../schemas/user-address.schema");
 const refresh_token_schema_1 = require("../../schemas/refresh-token.schema");
+const axios_1 = require("@nestjs/axios");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
@@ -43,7 +44,8 @@ exports.AuthModule = AuthModule = __decorate([
                 global: true,
                 secret: constants_1.jwtConstants.secret,
                 signOptions: { expiresIn: '7d' }
-            })
+            }),
+            axios_1.HttpModule
         ],
         controllers: [auth_controller_1.AuthController, user_account_controller_1.UserAccountController],
         providers: [

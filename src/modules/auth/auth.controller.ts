@@ -44,6 +44,24 @@ export class AuthController {
     }
   }
 
+  @Public()
+  @Get('user-auth')
+  async checkUserCountry(@Res() response){
+    try {
+      const userAllowed = await this.authService.checkUserCountry();
+      return response.status(HttpStatus.CREATED).json({
+        type: 'success',
+        data: userAllowed
+      })
+    } catch(err){
+      return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        type: 'error',
+        message: 'user restricted',
+        err
+      })
+    }
+  }
+
   @Post('logout')
   async userLogout(@Res() response, @Body() body, @Headers('Authorization') token) {
     try {

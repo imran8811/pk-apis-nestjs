@@ -51,6 +51,22 @@ let AuthController = exports.AuthController = class AuthController {
             }
         }
     }
+    async checkUserCountry(response) {
+        try {
+            const userAllowed = await this.authService.checkUserCountry();
+            return response.status(common_1.HttpStatus.CREATED).json({
+                type: 'success',
+                data: userAllowed
+            });
+        }
+        catch (err) {
+            return response.status(common_1.HttpStatus.INTERNAL_SERVER_ERROR).json({
+                type: 'error',
+                message: 'user restricted',
+                err
+            });
+        }
+    }
     async userLogout(response, body, token) {
         try {
             const userLogin = await this.authService.userLogout(body.userId, token);
@@ -98,6 +114,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "userLogin", null);
+__decorate([
+    (0, public_deco_1.Public)(),
+    (0, common_1.Get)('user-auth'),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "checkUserCountry", null);
 __decorate([
     (0, common_1.Post)('logout'),
     __param(0, (0, common_1.Res)()),

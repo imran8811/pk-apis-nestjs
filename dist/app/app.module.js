@@ -12,6 +12,7 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const modules_1 = require("../modules");
+const axios_1 = require("@nestjs/axios");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -22,7 +23,8 @@ exports.AppModule = AppModule = __decorate([
             modules_1.AdminModule,
             modules_1.AuthModule,
             modules_1.CartModule,
-            modules_1.OrderModule
+            modules_1.OrderModule,
+            axios_1.HttpModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

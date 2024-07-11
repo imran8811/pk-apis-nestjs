@@ -3,11 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { HttpService } from '@nestjs/axios';
 
 import { IUser } from 'src/interfaces';
 import { UserDTO } from 'src/dtos/';
 import { JwtService } from '@nestjs/jwt';
 import { IRefreshToken } from 'src/interfaces/refresh-token.interface';
+import { RESTRICTED_COUNTRIES } from 'src/constants';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +19,8 @@ export class AuthService {
   constructor(
     @InjectModel('User') private userModel: Model<IUser>,
     @InjectModel('RefreshToken') private refreshToken: Model<IRefreshToken>,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private httpService: HttpService
   ){}
 
   async userRegister(userDTO: UserDTO): Promise<any>{
@@ -92,6 +97,12 @@ export class AuthService {
     if(verifyRefreshToken){
       // return this.generateRefreshToken(verifyRefreshToken.userId)
     }
+  }
+
+  async checkUserCountry(){
+    const url = 'http://ip-api.com/json/';
+    const { data } = await firstValueFrom(this.httpService.get(url));
+    return RESTRICTED_COUNTRIES.includes(data.countryCode)? false : true;
   }
 
   async userLogout(userId:string, token:string): Promise<any>{
