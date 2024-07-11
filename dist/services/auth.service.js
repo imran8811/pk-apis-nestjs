@@ -103,7 +103,7 @@ let AuthService = exports.AuthService = class AuthService {
     async checkUserCountry() {
         const url = 'http://ip-api.com/json/';
         const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(url));
-        return constants_1.RESTRICTED_COUNTRIES.includes(data.countryCode) ? false : true;
+        return constants_1.RESTRICTED_COUNTRIES.includes(data.countryCode);
     }
     async userLogout(userId, token) {
         const decoded = this.jwtService.verify(token.split(' ')[1], { 'secret': 'lkdjfldkjfklsd0980980f9sd8f0sd98f0s9d8f//$$$098098' });

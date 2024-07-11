@@ -102,7 +102,7 @@ export class AuthService {
   async checkUserCountry(){
     const url = 'http://ip-api.com/json/';
     const { data } = await firstValueFrom(this.httpService.get(url));
-    return RESTRICTED_COUNTRIES.includes(data.countryCode)? false : true;
+    return RESTRICTED_COUNTRIES.includes(data.countryCode);
   }
 
   async userLogout(userId:string, token:string): Promise<any>{
