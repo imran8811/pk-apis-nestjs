@@ -79,4 +79,9 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], ProductDTO.prototype, "productImages", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], ProductDTO.prototype, "documentLink", void 0);
 //# sourceMappingURL=product.dto.js.map

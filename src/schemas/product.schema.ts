@@ -51,6 +51,9 @@ export class Product {
   
   @Prop({ type: String, required: true })
   pieceWeight: string;
+
+  @Prop({ type: String })
+  documentLink: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

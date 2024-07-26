@@ -16,5 +16,6 @@ export interface IProduct extends Document {
   slug: string;
   length: string;
   pieceWeight: string;
-  productImages: string[]
+  productImages: string[],
+  documentLink: string
 }

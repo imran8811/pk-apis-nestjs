@@ -41,6 +41,7 @@ export declare class Product {
     category: string;
     length: string;
     pieceWeight: string;
+    documentLink: string;
 }
 export declare const ProductSchema: import("mongoose").Schema<Product, import("mongoose").Model<Product, any, any, any, Document<unknown, any, Product> & Product & {
     _id: import("mongoose").Types.ObjectId;

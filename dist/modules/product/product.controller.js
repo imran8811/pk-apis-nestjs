@@ -194,6 +194,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "addProduct", null);
 __decorate([
+    (0, public_deco_1.Public)(),
     (0, common_1.Post)('getLatestArticleNo'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

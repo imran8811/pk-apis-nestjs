@@ -16,4 +16,5 @@ export interface IProduct extends Document {
     length: string;
     pieceWeight: string;
     productImages: string[];
+    documentLink: string;
 }

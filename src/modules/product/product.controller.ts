@@ -82,7 +82,7 @@ export class ProductController {
     }
   }
 
-  
+  @Public()
   @Post('getLatestArticleNo')
   async getLatestArticleNo() {
     const res = await this.productService.getLatestArticleNo();

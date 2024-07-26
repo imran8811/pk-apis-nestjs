@@ -34,4 +34,7 @@ export class ProductDTO {
   @IsArray()
   @IsOptional()
   readonly productImages?: string[];
+  @IsString()
+  @IsOptional()
+  documentLink?: string
 }

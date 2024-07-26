@@ -15,4 +15,5 @@ export declare class ProductDTO {
     readonly length: string;
     readonly pieceWeight: string;
     readonly productImages?: string[];
+    documentLink?: string;
 }
